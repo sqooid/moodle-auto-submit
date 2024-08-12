@@ -1,15 +1,29 @@
-<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
+<script lang="ts">
+	import Info from '$lib/components/info.svelte';
+	import SubmissionAdd from '$lib/components/submission-add.svelte';
+	import SubmissionList from '$lib/components/submission-list.svelte';
+	import type { PageData } from './$types';
 
-<div class="container h-full mx-auto flex justify-center items-center">
-	<div class="space-y-5">
-		<h1 class="h1">Let's get cracking bones!</h1>
-		<p>Start by exploring:</p>
-		<ul>
-			<li><code class="code">/src/routes/+layout.svelte</code> - barebones layout</li>
-			<li><code class="code">/src/app.postcss</code> - app wide css</li>
-			<li>
-				<code class="code">/src/routes/+page.svelte</code> - this page, you can replace the contents
-			</li>
-		</ul>
+	export let data: PageData;
+	const onAddItem = async () => {
+		const result = await fetch('/api/submission');
+		if (result.ok) {
+			data.items = await result.json();
+		}
+	};
+</script>
+
+<div class="flex flex-col gap-4">
+	<div class="grid grid-cols-[auto_1fr] gap-4">
+		<div>
+			<Info tz={data.tz} email={data.email} />
+		</div>
+		<div>
+			<SubmissionAdd on:add={onAddItem} />
+		</div>
+	</div>
+
+	<div class="">
+		<SubmissionList items={data.items} />
 	</div>
 </div>
