@@ -5,25 +5,21 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
-	const onAddItem = async () => {
-		const result = await fetch('/api/submission');
-		if (result.ok) {
-			data.items = await result.json();
-		}
-	};
 </script>
 
-<div class="flex flex-col gap-4">
-	<div class="grid grid-cols-[auto_1fr] gap-4">
-		<div>
-			<Info tz={data.tz} email={data.email} />
+<div class="flex flex-col justify-center items-center w-full">
+	<div class="flex flex-col gap-4 container">
+		<div class="grid grid-cols-[auto_1fr] gap-4">
+			<div>
+				<Info tz={data.tz} email={data.email} />
+			</div>
+			<div>
+				<SubmissionAdd />
+			</div>
 		</div>
-		<div>
-			<SubmissionAdd on:add={onAddItem} />
-		</div>
-	</div>
 
-	<div class="">
-		<SubmissionList items={data.items} />
+		<div class="">
+			<SubmissionList />
+		</div>
 	</div>
 </div>
