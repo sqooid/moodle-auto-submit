@@ -10,7 +10,7 @@ jobs:
           WG_CONFIG_FILE: ${{ secrets.WG_CLIENT }}
       - run: |
           ip route
-          wg show
+          sudo wg show
       - name: Deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
