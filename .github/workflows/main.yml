@@ -46,3 +46,31 @@ jobs:
           platforms: linux/amd64,linux/arm64
           cache-from: type=registry,ref=sqooid/mas:latest
           cache-to: type=inline
+
+      - name: Connect wireguard
+        uses: NexRX/WireGuard-Session@v1
+        with:
+          wg-client-b64: ${{ secrets.WG_CLIENT_B64 }}
+          timeout-address: ${{ secrets.WG_HOST_ADDRESS }}
+      - name: Deploy
+        env:
+          KEY: ${{ secrets.SSH_SECRET_KEY }}
+          USER: ${{ secrets.SSH_USER }}
+          HOST: ${{ secrets.WG_HOST_ADDRESS }}
+          COMMAND: ${{ secrets.DEPLOY_COMMAND }}
+        run: |
+          echo "$KEY" > key
+          ssh -i key $USER@$HOST " $COMMAND "
+
+
+
+
+
+
+
+
+
+
+
+
+          
