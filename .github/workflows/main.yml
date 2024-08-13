@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    name: Builder Docker image
+    name: Build and deploy Docker image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -60,7 +60,7 @@ jobs:
           COMMAND: ${{ secrets.DEPLOY_COMMAND }}
         run: |
           echo "$KEY" > key
-          ssh -i key $USER@$HOST " $COMMAND "
+          ssh -o StrictHostKeyChecking=no -i key $USER@$HOST " $COMMAND "
 
 
 
