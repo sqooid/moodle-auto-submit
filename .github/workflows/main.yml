@@ -57,9 +57,9 @@ jobs:
           wg-client-b64: ${{ secrets.WG_CLIENT_B64 }}
           timeout-address: ${{ secrets.WG_HOST_ADDRESS }}
       - name: Deploy
-        uses: fifsky/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.WG_HOST_ADDRESS }}
-          user: ${{ secrets.SSH_USER }}
-          pass: ${{ secrets.SSH_PASSWORD }}
-          command: cd /ssd/apps/mas && docker compose pull && docker compose up -d
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          script: cd /ssd/apps/mas && docker compose pull && docker compose up -d
