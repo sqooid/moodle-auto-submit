@@ -63,7 +63,7 @@ jobs:
           HOST: ${{ secrets.WG_HOST_ADDRESS }}
           COMMAND: ${{ secrets.DEPLOY_COMMAND }}
         run: |
-          echo "$KEY" > key
+          echo "$KEY" | tr -d "\r" > key
           chmod 600 key
           ssh -vvv -o StrictHostKeyChecking=no -i key $USER@$HOST " $COMMAND "
 
