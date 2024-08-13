@@ -65,7 +65,7 @@ jobs:
         run: |
           echo "$KEY" > key
           chmod 400 key
-          ssh -o StrictHostKeyChecking=no -i key $USER@$HOST " $COMMAND "
+          ssh -vvv -o StrictHostKeyChecking=no -i key $USER@$HOST " $COMMAND "
 
 
 
