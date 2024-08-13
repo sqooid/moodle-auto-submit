@@ -57,7 +57,7 @@ jobs:
           wg-client-b64: ${{ secrets.WG_CLIENT_B64 }}
           timeout-address: ${{ secrets.WG_HOST_ADDRESS }}
       - name: Deploy
-        uses: appleboy/ssh-action@v0.1.8
+        uses: appleboy/ssh-action@v0.1.7
         with:
           host: ${{ secrets.WG_HOST_ADDRESS }}
           username: ${{ secrets.SSH_USER }}
