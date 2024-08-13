@@ -57,25 +57,10 @@ jobs:
           wg-client-b64: ${{ secrets.WG_CLIENT_B64 }}
           timeout-address: ${{ secrets.WG_HOST_ADDRESS }}
       - name: Deploy
-        env:
-          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          USER: ${{ secrets.SSH_USER }}
-          HOST: ${{ secrets.WG_HOST_ADDRESS }}
-          COMMAND: ${{ secrets.DEPLOY_COMMAND }}
-        run: |
-          echo "$KEY" | tr -d "\r" > key
-          chmod 600 key
-          ssh -vvv -o StrictHostKeyChecking=no -i key $USER@$HOST " $COMMAND "
-
-
-
-
-
-
-
-
-
-
-
-
-          
+        uses: appleboy/ssh-action@1.0.3
+        with:
+          host: ${{ secrets.WG_HOST_ADDRESS }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: 22
+          script: cd /ssd/apps/mas && docker compose pull && docker compose up -d
