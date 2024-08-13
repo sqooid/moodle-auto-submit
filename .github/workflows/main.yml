@@ -64,6 +64,7 @@ jobs:
           COMMAND: ${{ secrets.DEPLOY_COMMAND }}
         run: |
           echo "$KEY" > key
+          chmod 400 key
           ssh -o StrictHostKeyChecking=no -i key $USER@$HOST " $COMMAND "
 
 
