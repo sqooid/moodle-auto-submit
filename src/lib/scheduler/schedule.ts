@@ -2,7 +2,7 @@ import { env } from '$env/dynamic/private';
 import { moodleLogin, submitAssignment } from '$lib/moodle';
 import { createItem, deleteItem, setDone, type SubmissionItemType } from './db';
 import schedule from 'node-schedule';
-import { sendMail } from './sendgrid';
+import { sendDiscordNotification } from './discord';
 
 export const scheduleSubmissionJob = (item: SubmissionItemType) => {
 	// schedule job
@@ -17,13 +17,13 @@ export const scheduleSubmissionJob = (item: SubmissionItemType) => {
 					delete jobs[item._id];
 					const updated = await setDone(item._id);
 					console.log(`update done date ${updated}`);
-					throw 'gay';
 				}
+				await sendDiscordNotification(item, true);
 			} catch (e) {
 				console.log(`submission failed: ${e}`);
 
 				// notify if fails somehow
-				await sendMail(item);
+				await sendDiscordNotification(item, false);
 			}
 		}.bind(null, item)
 	);
