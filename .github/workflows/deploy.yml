@@ -4,15 +4,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      # - name: Connect wireguard
-      #   uses: NexRX/WireGuard-Session@v1
-      #   with:
-      #     wg-client-b64: ${{ secrets.WG_CLIENT_B64 }}
-      #     timeout-address: ${{ secrets.WG_HOST_ADDRESS }}
+      - name: Connect wireguard
+        uses: niklaskeerl/easy-wireguard-action@v2
+        with:
+          WG_CONFIG_FILE: ${{ secrets.WG_CLIENT }}
       - name: Deploy
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.WG_HOST_ADDRESS }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: whoami
+
+
