@@ -1,0 +1,18 @@
+on: [workflow_dispatch]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # - name: Connect wireguard
+      #   uses: NexRX/WireGuard-Session@v1
+      #   with:
+      #     wg-client-b64: ${{ secrets.WG_CLIENT_B64 }}
+      #     timeout-address: ${{ secrets.WG_HOST_ADDRESS }}
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.WG_HOST_ADDRESS }}
+          username: ${{ secrets.SSH_USER }}
+          password: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: whoami
