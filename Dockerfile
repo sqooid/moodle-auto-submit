@@ -1,4 +1,4 @@
-FROM --platform=linux/arm64 node:slim
+FROM --platform=linux/arm64/v8 node:slim
 
 COPY ./build/ ./
 
