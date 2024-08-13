@@ -1,4 +1,4 @@
-import { EMAIL, FAKE, PASSWORD, SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { moodleLogin, submitAssignment } from '$lib/moodle';
 import { createItem, deleteItem, setDone, type SubmissionItemType } from './db';
 import schedule from 'node-schedule';
@@ -11,8 +11,8 @@ export const scheduleSubmissionJob = (item: SubmissionItemType) => {
 		async function (item: SubmissionItemType) {
 			console.log(`running submission for ${item.url}`);
 			try {
-				const page = await moodleLogin(item.url, EMAIL, PASSWORD, SECRET);
-				if (!FAKE) await submitAssignment(page, false);
+				const page = await moodleLogin(item.url, env.EMAIL, env.PASSWORD, env.SECRET);
+				if (!env.FAKE) await submitAssignment(page, false);
 				if (item._id) {
 					delete jobs[item._id];
 					const updated = await setDone(item._id);

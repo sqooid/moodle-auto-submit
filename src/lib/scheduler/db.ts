@@ -1,7 +1,7 @@
-import { DB_PATH } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import Datastore from '@seald-io/nedb';
 
-const db = new Datastore({ filename: DB_PATH || 'data/db', autoload: true });
+const db = new Datastore({ filename: env.DB_PATH || 'data/db', autoload: true });
 
 export type SubmissionItemType = {
 	_id?: string;

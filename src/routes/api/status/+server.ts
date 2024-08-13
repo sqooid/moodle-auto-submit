@@ -1,11 +1,16 @@
-import { EMAIL, MOODLE_HOME, PASSWORD, SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { moodleLogin } from '$lib/moodle';
 import { error, json, text } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const GET: RequestHandler = async (event) => {
 	try {
-		await moodleLogin(MOODLE_HOME || 'https://learning.monash.edu/my/', EMAIL, PASSWORD, SECRET);
+		await moodleLogin(
+			env.MOODLE_HOME || 'https://learning.monash.edu/my/',
+			env.EMAIL,
+			env.PASSWORD,
+			env.SECRET
+		);
 		return json({});
 	} catch (e) {
 		error(500, { message: e instanceof Error ? e.toString() : '' });

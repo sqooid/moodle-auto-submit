@@ -7,7 +7,7 @@ import {
 	moodleLogin,
 	submitAssignment
 } from '$lib/moodle';
-import { EMAIL, FAKE, PASSWORD, SECRET } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 import { addNewSubmission, cancelSubmission } from '$lib/scheduler/schedule';
 import moment from 'moment';
 
@@ -33,11 +33,11 @@ export const POST: RequestHandler = async (event) => {
 	console.log(`creating submission for ${url}`);
 
 	// test if url works
-	const page = await moodleLogin(url, EMAIL, PASSWORD, SECRET);
+	const page = await moodleLogin(url, env.EMAIL, env.PASSWORD, env.SECRET);
 	try {
 		console.log('trying dry submission');
 
-		if (!FAKE) await submitAssignment(page, true);
+		if (!env.FAKE) await submitAssignment(page, true);
 	} catch (e) {
 		console.log(e);
 		error(400, { message: 'Assignment page is not compatible' });
@@ -45,7 +45,7 @@ export const POST: RequestHandler = async (event) => {
 	const title = await getAssignmentTitle(page);
 	const dueDatetime = await getAssignmentDueDate(page);
 	const submitTime = (
-		FAKE ? moment().add(20, 'seconds') : dueDatetime.subtract(15, 'minutes')
+		env.FAKE ? moment().add(20, 'seconds') : dueDatetime.subtract(15, 'minutes')
 	).toDate();
 	const item: SubmissionItemType = {
 		title,
