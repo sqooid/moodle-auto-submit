@@ -1,7 +1,8 @@
 FROM node:slim
 
+WORKDIR /app
+
 COPY ./build/ ./
-COPY ./package.json ./
 
 USER node
 
