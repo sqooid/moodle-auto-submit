@@ -26,7 +26,7 @@ jobs:
       - name: Test
         run: pnpm run test:unit
       - name: Build
-        run: pnpm build && cp package.json pnpm-lock.yaml build/ && cd build/ && pnpm ci --omit dev
+        run: pnpm build && cp package.json pnpm-lock.yaml build/ && cd build/ && pnpm install --frozen-lockfile
         
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
