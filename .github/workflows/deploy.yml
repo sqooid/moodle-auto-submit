@@ -4,6 +4,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - run: |
+          ip route
       - name: Connect wireguard
         uses: niklaskeerl/easy-wireguard-action@v2
         with:
