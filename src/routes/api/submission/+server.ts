@@ -47,6 +47,9 @@ export const POST: RequestHandler = async (event) => {
 	const submitTime = (
 		env.FAKE ? moment().add(20, 'seconds') : dueDatetime.subtract(15, 'minutes')
 	).toDate();
+	if (submitTime.valueOf() < Date.now()) {
+		error(400, { message: 'Submission time is in the past' });
+	}
 	const item: SubmissionItemType = {
 		title,
 		url,
