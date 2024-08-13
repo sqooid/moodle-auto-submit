@@ -61,6 +61,6 @@ jobs:
         with:
           host: ${{ secrets.WG_HOST_ADDRESS }}
           username: ${{ secrets.SSH_USER }}
-          password: ${{ secrets.SSH_PASSWORD }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: cd /ssd/apps/mas && docker compose pull && docker compose up -d
           debug: true
