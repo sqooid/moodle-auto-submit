@@ -58,7 +58,7 @@ jobs:
           timeout-address: ${{ secrets.WG_HOST_ADDRESS }}
       - name: Deploy
         env:
-          KEY: ${{ secrets.SSH_SECRET_KEY }}
+          KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           USER: ${{ secrets.SSH_USER }}
           HOST: ${{ secrets.WG_HOST_ADDRESS }}
           COMMAND: ${{ secrets.DEPLOY_COMMAND }}
