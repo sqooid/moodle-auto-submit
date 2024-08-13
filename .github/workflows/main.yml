@@ -27,7 +27,7 @@ jobs:
         run: pnpm run test:unit
       - name: Build
         run: pnpm build && cp package.json pnpm-lock.yaml build/ && cd build/ && pnpm install --frozen-lockfile
-        
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
@@ -61,6 +61,6 @@ jobs:
         with:
           host: ${{ secrets.WG_HOST_ADDRESS }}
           username: ${{ secrets.SSH_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SSH_PASSWORD }}
           script: cd /ssd/apps/mas && docker compose pull && docker compose up -d
           debug: true
