@@ -1,6 +1,7 @@
-FROM --platform=linux/arm64/v8 node:slim
+FROM node:slim
 
 COPY ./build/ ./
+COPY ./package.json ./
 
 USER node
 
