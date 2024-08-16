@@ -2,10 +2,10 @@ FROM node:slim
 
 WORKDIR /app
 
-RUN npx playwright install --with-deps chromium
+RUN npx playwright install-deps
+USER node
+RUN npx playwright install chromium
 
 COPY ./build/ ./
-
-USER node
 
 CMD [ "node", "index.js" ]
