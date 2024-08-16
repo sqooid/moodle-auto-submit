@@ -54,7 +54,7 @@
 			<ArrowUpRightFromSquare class="h-6 fill-white" />
 		</a>
 		<span>
-			Due: {moment(submission.dueDatetime).format('dddd, hh:MM A DD/MM/YYYY')}
+			Due: {moment(submission.dueDatetime).format('dddd, hh:mm A DD/MM/YYYY')}
 		</span>
 	</div>
 	{#if cancellable}
