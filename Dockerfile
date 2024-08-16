@@ -2,6 +2,9 @@ FROM node:slim
 
 WORKDIR /app
 
+COPY ./package.json ./
+RUN npx playwright install --with-deps chromium
+
 COPY ./build/ ./
 
 USER node
