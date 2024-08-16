@@ -26,7 +26,8 @@ export const moodleLogin = async (
 		(await getInputButton(page, 'Verify')).click();
 		await page.waitForURL(url, { waitUntil: 'networkidle' });
 	} catch (error) {
-		await page.screenshot({ path: 'test-files/test.png', fullPage: true });
+		console.log(error);
+		// await page.screenshot({ path: 'test-files/test.png', fullPage: true });
 		throw error;
 	}
 	return page;
